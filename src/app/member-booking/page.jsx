@@ -1,7 +1,37 @@
 'use client'
 
 import React, { useState } from 'react';
+import { MdChangeHistory } from "react-icons/md";
+import {
+    Button,
+    Cascader,
+    Checkbox,
+    ColorPicker,
+    DatePicker,
+    Form,
+    Input,
+    InputNumber,
+    Radio,
+    Rate,
+    Select,
+    Slider,
+    Switch,
+    TreeSelect,
+    Upload,
+    Row,
+    Col
+} from 'antd';
+import { PlusOutlined } from '@ant-design/icons';
 
+const { RangePicker } = DatePicker;
+const { TextArea } = Input;
+
+const normFile = (e) => {
+    if (Array.isArray(e)) {
+        return e;
+    }
+    return e?.fileList;
+};
 
 const MemberShipForm = () => {
     const [formData, setFormData] = useState({
@@ -49,34 +79,135 @@ const MemberShipForm = () => {
 
     return (
         <section className="p-8">
-            <div className="max-w mx-auto bg-gradient-to-r from-orange-400 via-red-500 to-pink-500 p-6 shadow-md rounded-lg">
+            <div className="max-w mx-auto bg-gray-200 p-6 shadow-md rounded-lg">
                 <h1 className="text-xl font-bold mb-4 text-center">Membership Form</h1>
-                <form className="w-full" onSubmit={handleSubmit}>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4"> {/* Change here for 3 fields per row */}
-                        {Object.keys(formData).map((key) => (
-                            <div key={key} className="mb-4">
-                                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor={key}>
-                                    {key.replace('_', ' ').toUpperCase()}
-                                </label>
-                                <input
-                                    className="w-full px-3 py-2 border bg-white rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                    id={key}
-                                    name={key}
-                                    type="text"
-                                    placeholder={`Enter ${key}`}
-                                    value={formData[key]}
-                                    onChange={handleChange}
+
+                <Form
+                    labelCol={{ span: 10 }}
+                    wrapperCol={{ span: 16 }}
+                    layout="horizontal"
+                    disabled={false}
+                    // style={{ maxWidth: 800 }}
+                    className='w-full'
+                >
+                    {/* First Row */}
+                    <Row gutter={16} className='left-10'>
+                        <Col span={8} >
+                            <Form.Item label="Member Name">
+                                <Input name="members_name" onChange={handleChange}  />
+                            </Form.Item>
+                        </Col>
+                        <Col span={8}>
+                            <Form.Item label="Check-in & Check-out">
+                                <RangePicker />
+                            </Form.Item>
+                        </Col>
+                        <Col span={8}>
+                            <Form.Item label="Guest Count">
+                                <Select>
+                                    <Select.Option value="demo">Demo</Select.Option>
+                                </Select>
+                            </Form.Item>
+                        </Col>
+                    </Row>
+
+                    {/* Second Row */}
+                    <Row gutter={16}>
+                        <Col span={8}>
+                            <Form.Item label="Room Category">
+                                <Cascader
+                                    options={[
+                                        {
+                                            label: 'Deluxe',
+                                            value: 'deluxe',
+                                            
+                                        },
+                                        {
+                                            label: 'Regular',
+                                            value: 'regular',
+                                            
+                                        },
+                                    ]}
                                 />
-                            </div>
-                        ))}
-                    </div>
-                    <button
-                        type="submit"
-                        className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600 transition duration-200"
-                    >
-                        Submit
-                    </button>
-                </form>
+                            </Form.Item>
+                        </Col>
+                        <Col span={8}>
+                            <Form.Item label="Booking Date">
+                                <DatePicker />
+                            </Form.Item>
+                        </Col>
+                        <Col span={8}>
+                            <Form.Item label="Booking Type">
+                                <Cascader
+                                    options={[
+                                        {
+                                            value: 'domestic',
+                                            label: 'Domestic',
+                                            
+                                        },
+                                        {
+                                            value: 'international',
+                                            label: 'International',
+                                            
+                                        },
+                                    ]}
+                                />
+                            </Form.Item>
+                        </Col>
+                    </Row>
+
+                    {/* Third Row */}
+                    <Row gutter={16}>
+                        <Col span={8}>
+                            <Form.Item label="Total Rooms">
+                                <InputNumber />
+                            </Form.Item>
+                        </Col>
+                        <Col span={8}>
+                            <Form.Item label="Booking Location">
+                                <Input />
+                            </Form.Item>
+                        </Col>
+                        <Col span={8}>
+                            <Form.Item label="Additional Amount Paid">
+                                <InputNumber />
+                            </Form.Item>
+                        </Col>
+                    </Row>
+
+                    {/* Fourth Row */}
+                    <Row gutter={16}>
+                        <Col span={8}>
+                            <Form.Item label="Payment Purpose">
+                                <Select>
+                                    <Select.Option value="advance">Advance</Select.Option>
+                                </Select>
+                            </Form.Item>
+                        </Col>
+                        <Col span={8}>
+                            <Form.Item label="Upload Voucher" valuePropName="fileList" getValueFromEvent={normFile}>
+                                <Upload action="/upload.do" listType="picture-card">
+                                    <button style={{ border: 0, background: 'none' }} type="button">
+                                        <PlusOutlined />
+                                        <div style={{ marginTop: 8 }}>Upload</div>
+                                    </button>
+                                </Upload>
+                            </Form.Item>
+                        </Col>
+                        <Col span={8}>
+                            <Form.Item label="Payment Status">
+                                <Switch />
+                            </Form.Item>
+                        </Col>
+                    </Row>
+
+                    <Row>
+                        <Col span={24} style={{ textAlign: 'center' }}>
+                            <Button type="primary" htmlType="submit">Submit</Button>
+                        </Col>
+                    </Row>
+
+                </Form>
             </div>
         </section>
     );
