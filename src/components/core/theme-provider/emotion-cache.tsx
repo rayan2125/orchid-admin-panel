@@ -46,20 +46,20 @@ export default function NextAppDirEmotionCacheProvider(props: NextAppDirEmotionC
 
   useServerInsertedHTML((): React.JSX.Element | null => {
     const inserted = registry.flush();
-
+  
     if (inserted.length === 0) {
       return null;
     }
-
+  
     let styles = '';
     let dataEmotionAttribute = registry.cache.key;
-
+  
     const globals: { name: string; style: string }[] = [];
-
+  
     inserted.forEach(({ name, isGlobal }) => {
       const style = registry.cache.inserted[name];
-
-      if (typeof style !== 'boolean') {
+  
+      if (typeof style === 'string') {  // Ensure style is a string
         if (isGlobal) {
           globals.push({ name, style });
         } else {
@@ -68,7 +68,7 @@ export default function NextAppDirEmotionCacheProvider(props: NextAppDirEmotionC
         }
       }
     });
-
+  
     return (
       <React.Fragment>
         {globals.map(
@@ -84,6 +84,7 @@ export default function NextAppDirEmotionCacheProvider(props: NextAppDirEmotionC
       </React.Fragment>
     );
   });
+  
 
   return <CacheProvider value={registry.cache}>{children}</CacheProvider>;
 }

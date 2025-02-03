@@ -110,8 +110,62 @@ const MemberShipForm = () => {
                             </Form.Item>
                         </Col>
                     </Row>
+                    <Row gutter={16} className='left-10'>
+                        <Col span={8} >
+                        <Form.Item label="Adlut Guest Count">
+                                <Select>
+                                    <Select.Option value="demo">Demo</Select.Option>
+                                </Select>
+                            </Form.Item>
+                        </Col>
+                        <Col span={8}>
+                        <Form.Item label="Children Guest Count">
+                                <Select>
+                                    <Select.Option value="demo">Demo</Select.Option>
+                                </Select>
+                            </Form.Item>
+                        </Col>
+                        <Col span={8}>
+                            <Form.Item label="Guest Count">
+                                <Select>
+                                    <Select.Option value="demo">Demo</Select.Option>
+                                </Select>
+                            </Form.Item>
+                        </Col>
+                    </Row>
 
                     {/* Second Row */}
+                    <Row gutter={16}>
+                        <Col span={8}>
+                            <Form.Item label="Hotel Name">
+                                {/* <Cascader
+                                    options={[
+                                        {
+                                            label: 'Deluxe',
+                                            value: 'deluxe',
+                                            
+                                        },
+                                        {
+                                            label: 'Regular',
+                                            value: 'regular',
+                                            
+                                        },
+                                    ]}
+                                /> */}
+                                 <Input name="hotel_name" onChange={handleChange}  />
+                            </Form.Item>
+                        </Col>
+                        <Col span={8}>
+                            <Form.Item label="Nights Booking">
+                            <Input name="hotel_name" onChange={handleChange}  />
+                            </Form.Item>
+                        </Col>
+                        <Col span={8}>
+                            <Form.Item label="Nights Utilised (under)">
+                            <Input name="hotel_name" onChange={handleChange}  />
+                            </Form.Item>
+                        </Col>
+                    </Row>
                     <Row gutter={16}>
                         <Col span={8}>
                             <Form.Item label="Room Category">

@@ -14,6 +14,7 @@ import { config } from '@/config';
 import { CustomersFilters } from '@/components/dashboard/customer/customers-filters';
 import { CustomersTable } from '@/components/dashboard/customer/customers-table';
 import type { Customer } from '@/components/dashboard/customer/customers-table';
+import { useRouter } from 'next/navigation';
 
 // export const metadata = { title: `Customers | Dashboard | ${config.site.name}` } satisfies Metadata;
 
@@ -114,10 +115,10 @@ const customers = [
 export default function Page(): React.JSX.Element {
   const page = 0;
   const rowsPerPage = 5;
-
+let navigation = useRouter()
   const paginatedCustomers = applyPagination(customers, page, rowsPerPage);
 const handleConsole =()=>{
-  console.log("mine::")
+  navigation.push('customer-form')
 }
   return (
     <Stack spacing={3}>
